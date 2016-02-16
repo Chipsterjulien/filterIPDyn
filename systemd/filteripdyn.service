@@ -1,0 +1,12 @@
+[Unit]
+Description=Filtering IP dyn with iptables
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/filteripdyn
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
