@@ -6,7 +6,7 @@ Wants=network.target
 Type=simple
 ExecStart=/usr/bin/filteripdyn
 Restart=on-failure
-RestartSec=10s
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target

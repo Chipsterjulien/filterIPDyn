@@ -7,20 +7,20 @@ logtype = "info"
 refresh = 5
 
 # Example
-[[iplist]]
-ip = "192.168.1.1"
-protocol = "tcp"
-portBegin = 22
-portEnd = 22
-
-[[iplist]]
-ip = "192.168.1.1"
-protocol = "udp"
-portBegin = 22
-portEnd = 22
-
-[[iplist]]
-ip = "my.hostname.com"
-protocol = "tcp"
-portBegin = 22
-portEnd = 22
+#[[iplist]]
+#ip = "192.168.1.1"
+#protocol = "tcp"
+#portBegin = 22
+#portEnd = 22
+#
+#[[iplist]]
+#ip = "192.168.1.1"
+#protocol = "udp"
+#portBegin = 22
+#portEnd = 22
+#
+#[[iplist]]
+#ip = "my.hostname.com"
+#protocol = "tcp"
+#portBegin = 22
+#portEnd = 22

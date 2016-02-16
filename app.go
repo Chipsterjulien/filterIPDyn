@@ -29,65 +29,6 @@ type Config struct {
 	}
 }
 
-func execCmd(cmdStr string) {
-	log := logging.MustGetLogger("log")
-	log.Debug("cmdStr: %s", cmdStr)
-
-	cmd := exec.Command("/sbin/sh", "-c", cmdStr)
-	if err := cmd.Start(); err != nil {
-		log.Critical("Unable to exec cmd: %v", err)
-		return
-	}
-	if err := cmd.Wait(); err != nil {
-		log.Critical("Some error while waiting: %v", err)
-		return
-	}
-}
-
-func loadAcceptIP() {
-	for i := 0; i < len(C.IpList); i++ {
-		if C.IpList[i].RealIP != "" {
-			if C.IpList[i].PortBegin <= C.IpList[i].PortEnd {
-				for j := C.IpList[i].PortBegin; j <= C.IpList[i].PortEnd; j++ {
-					cmdStr := generateStr(C.IpList[i].Protocol, j, C.IpList[i].RealIP, "I")
-					execCmd(cmdStr)
-				}
-			} else {
-				log := logging.MustGetLogger("log")
-				log.Warning("Port end (\"%d\") is smaller than (\"%d\") !", C.IpList[i].PortEnd, C.IpList[i].PortBegin)
-			}
-		}
-	}
-}
-
-func searchRealIP() {
-	log := logging.MustGetLogger("log")
-
-	if err := viper.Marshal(&C); err != nil {
-		log.Critical("Unable to translate config file: %v", err)
-		os.Exit(1)
-	}
-
-	for i := 0; i < len(C.IpList); i++ {
-		if isIp(C.IpList[i].IP) {
-			C.IpList[i].RealIP = C.IpList[i].IP
-		} else {
-			C.IpList[i].IsHost = true
-			ipList, err := net.LookupHost(C.IpList[i].IP)
-			if err != nil {
-				log.Warning("Unable to convert \"%s\" to an IP: %v", C.IpList[i].IP, err)
-				continue
-			}
-			C.IpList[i].RealIP = ipList[0]
-		}
-		log.Debug("IP donnée: %s | IP réelle: %s", C.IpList[i].IP, C.IpList[i].RealIP)
-	}
-	log.Debug("Config after changes: %v", C.IpList)
-}
-
-
-// ---------------------------------------------------------------------------------------------------------------------
-
 func browseIP() {
 	log := logging.MustGetLogger("log")
 
@@ -129,6 +70,21 @@ func checkHost() {
 		if !isIp(C.IpList[i].IP) {
 			C.IpList[i].IsHost = true
 		}
+	}
+}
+
+func execCmd(cmdStr string) {
+	log := logging.MustGetLogger("log")
+	log.Debug("cmdStr: %s", cmdStr)
+
+	cmd := exec.Command("/sbin/sh", "-c", cmdStr)
+	if err := cmd.Start(); err != nil {
+		log.Critical("Unable to exec cmd: %v", err)
+		return
+	}
+	if err := cmd.Wait(); err != nil {
+		log.Critical("Some error while waiting: %v", err)
+		return
 	}
 }
 
