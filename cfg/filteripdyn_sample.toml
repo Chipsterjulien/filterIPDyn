@@ -1,26 +1,28 @@
 # logtype can take: debug, info, notice, warning, error, critical
 # warning is the default
-logtype = "info"
+logtype = "warning"
 
 [default]
-# Refresh accept number of minute(s). It's an integer
+# Refresh time in seconde(s). It's an integer
 refresh = 5
 
-# Example
+# Examples
 #[[iplist]]
 #ip = "192.168.1.1"
 #protocol = "tcp"
-#portBegin = 22
-#portEnd = 22
+#portList = ["22:22", "24:24"]
 #
 #[[iplist]]
 #ip = "192.168.1.1"
+#protocol = "tcp"
+#portList = ["22:24"]
+#
+#[[iplist]]
+#ip = "your.domain.name"
+#protocol = "tcp"
+#portList = ["22:24"]
+#
+#[[iplist]]
+#ip = "your.domain.name"
 #protocol = "udp"
-#portBegin = 22
-#portEnd = 22
-#
-#[[iplist]]
-#ip = "my.hostname.com"
-#protocol = "tcp"
-#portBegin = 22
-#portEnd = 22
+#portList = ["22:24"]
