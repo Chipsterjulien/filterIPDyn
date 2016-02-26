@@ -56,7 +56,7 @@ func browseDynIP() {
 				
 				for j := begin; j <= end; j++ {
 					if C.IpList[i].RealIP != "" {
-						strList = append(strList, generateStr(C.IpList[i].Protocol, j, ipList[0], "D"))
+						strList = append(strList, generateStr(C.IpList[i].Protocol, j, C.IpList[i].RealIP, "D"))
 					}
 					strList = append(strList, generateStr(C.IpList[i].Protocol, j, ipList[0], "I"))
 				}

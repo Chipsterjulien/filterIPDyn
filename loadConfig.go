@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/viper"
 	"os"
 	"path"
+	"fmt"
 )
 
 func loadConfig(filenamePath *string, filename *string) {
@@ -37,7 +38,7 @@ func loadConfig(filenamePath *string, filename *string) {
 	}
 
 	log.Debug("loadConfig func:")
-	log.Debug("  path: %s", *filenamePath)
-	log.Debug("  filename: %s", *filename)
-	log.Debug("  logtype in file config is \"%s\"", viper.GetString("logtype"))
+	log.Debug(fmt.Sprintf("  path: %s", *filenamePath))
+	log.Debug(fmt.Sprintf("  filename: %s", *filename))
+	log.Debug(fmt.Sprintf("  logtype in file config is \"%s\"", viper.GetString("logtype")))
 }
